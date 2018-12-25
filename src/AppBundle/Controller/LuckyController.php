@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class LuckyController
 {
   /**
-  * @Route("/lucky/number")
+  * @Route("/lucky/number/{count}")
   */
   public function numberAction()
   {
@@ -37,7 +37,7 @@ class LuckyController
   }
 
   /**
-  * @Route("/lucky/number/{$count}")
+  * @Route("/lucky/number/{count}")
   */
   public function numberCountAction($count)
   {
@@ -47,8 +47,15 @@ class LuckyController
       }
       $numbersList = implode(', ', $numbers);
 
-      return new Response(
+      /*return new Response(
         '<html><body>Lucky Number: '.$numbersList.'</body></html>'
-      );
+      );*/
+
+      $html = $this->render(
+          'lucky/number.html.twing',
+          ['luckyNumberList' => $numbersList]
+        );
+
+      return new Response($html);
   }
 }
